@@ -11,27 +11,27 @@ fi
 
 #for teams
 
-# cat games.csv | while IFS=',' read YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
-# do 
-# if [[ $YEAR != year ]]
-# then
-# echo $YEAR $ROUND $WINNER $OPPONENT $WINNER_GOALS $OPPONENT_GOALS
-# #if WINNER in teams
-# WIN_EXISTS=$($PSQL "SELECT name FROM teams WHERE name='$WINNER'")
-# if [[ -z $WIN_EXISTS ]]
-# then
-# $PSQL "INSERT INTO teams(name) VALUES('$WINNER')" 
+ cat games.csv | while IFS=',' read YEAR ROUND WINNER OPPONENT WINNER_GOALS OPPONENT_GOALS
+do 
+if [[ $YEAR != year ]]
+then
+echo $YEAR $ROUND $WINNER $OPPONENT $WINNER_GOALS $OPPONENT_GOALS
+#if WINNER in teams
+WIN_EXISTS=$($PSQL "SELECT name FROM teams WHERE name='$WINNER'")
+if [[ -z $WIN_EXISTS ]]
+then
+$PSQL "INSERT INTO teams(name) VALUES('$WINNER')" 
 
-# fi
-# # if opp in teams
-# OPP_EXISTS=$($PSQL "SELECT name FROM teams WHERE name='$OPPONENT'")
-# if [[ -z $OPP_EXISTS ]]
-# then
-# $PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" 
-# fi
+fi
+# if opp in teams
+OPP_EXISTS=$($PSQL "SELECT name FROM teams WHERE name='$OPPONENT'")
+if [[ -z $OPP_EXISTS ]]
+then
+$PSQL "INSERT INTO teams(name) VALUES('$OPPONENT')" 
+fi
 
-# fi
-# done 
+fi
+done 
 
 #for games
 
